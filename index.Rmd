@@ -2,14 +2,8 @@
 title: "Egressos Fitopatologia UFV"
 output: 
   flexdashboard::flex_dashboard:
+    theme: flatly
     
-    source_code: embed
-    theme: united
-    social: menu
-    css: style2.css
-    
-editor_options: 
-  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -24,10 +18,12 @@ library(crosstalk)
 library(plotly)
 library(viridis)
 library(gsheet)
-library(leaflet.providers)
-library(leaflet)
+
 library(DT)
 library(janitor)
+library(cowplot)
+theme_set(theme_minimal_hgrid())
+library(ggthemes)
 ```
 
 
@@ -40,7 +36,7 @@ dat1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKsc
 
 
 dat1 <- dat1 %>% 
-  select(nome, nivel, defesa, orientador, estado, vinculo)
+  select(nome, nivel, defesa, orientador, vinculo)
 
 
 ```
@@ -66,15 +62,18 @@ Column {.sidebar}
 
 
 ```{r}
-filter_slider("Ano de defesa", "Restringe aos anos", sd, ~defesa)
-filter_select("orientador", "Orientador", sd, ~orientador)
+filter_slider("Ano de defesa", "Restringe aos anos", sd, ~defesa,
+              round = TRUE)
+
+filter_select("orientador", "Orientador", sd, ~orientador,
+              multiple = FALSE)
 filter_checkbox("Nível", "Nível", sd, ~ nivel, 
                 inline = TRUE)
 
 ```
 
 
-Column {.tabset}
+Column {data-width=750 .tabset}
 -------------------------------------
 
 
@@ -91,11 +90,81 @@ datatable(sd,
 
 ```
 
+### Total defesas/nível
+
+```{r}
+library(cowplot)
+theme_set(theme_minimal_hgrid())
+dat1 %>% 
+  ggplot(aes(x = nivel, fill = nivel))+
+  geom_bar()+
+  theme_minimal_hgrid(font_size = 9)+
+  
+  scale_fill_pander()
+```
 
 
+### Total defesas/ano
+
+```{r}
+dat1 %>% 
+  tabyl(defesa, nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(defesa, n, fill = nivel))+
+  geom_col()+
+    theme_minimal_hgrid(font_size = 9)+
+  scale_fill_pander()
+```
 
 
-O Programa
+### Total defesas/orientador
+
+```{r}
+
+dat1 %>% 
+  tabyl(orientador, nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(orientador, n),y=  n, fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  scale_fill_pander()+
+    theme_minimal_hgrid(font_size = 9)
+```
+
+
+Column {data-width=250}
+-------------------------------------
+
+
+### Defesas por nível
+
+```{r}
+
+dat1 %>% 
+  ggplot(aes(x = nivel, fill = nivel))+
+  geom_bar()+
+    scale_fill_pander()+
+    theme_minimal_hgrid(font_size = 12)
+```
+
+
+### Defesas por ano
+
+
+```{r}
+library(cowplot)
+theme_set(theme_minimal_hgrid())
+dat1 %>% 
+  tabyl(defesa, nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(defesa, n, fill = nivel))+
+  geom_col()+
+    theme_minimal_hgrid(font_size = 12)
+  
+  scale_fill_pander()
+```
+
+Atualize seus dados
 ============
 
 
