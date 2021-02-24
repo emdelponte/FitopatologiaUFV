@@ -40,7 +40,7 @@ dat1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKsc
 
 
 dat1 <- dat1 %>% 
-  select(nome, nivel, defesa, orientador)
+  select(nome, nivel, defesa, orientador, estado, vinculo)
 
 
 ```
@@ -82,33 +82,16 @@ Column {.tabset}
 
 
 ```{r}
-datatable(sd, class = 'cell-border stripe'),
-  
-  options = list(
+datatable(sd, 
+           options = list(
     pageLength= 15,
     scroller = TRUE
   )
 )
+
 ```
 
 
-### <i class="fa fa-chart-bar" aria-hidden="true"></i> Orientador
-
-
-
-```{r}
- dat1 %>% 
-  tabyl(orientador) %>% 
-  ggplot(aes(reorder(orientador, n), n))+
-  geom_col(fill = "#558796")+
-  theme_minimal()+
-  coord_flip()+
-  theme(legend.position = "none", 
-        plot.margin = margin(2, 2, 2, 2, "cm"))+
-  labs(x = "", y = "Número de orientadors", title = "Orientador")
-  
-  
-```
 
 
 
