@@ -39,7 +39,8 @@ Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 dat1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
 
 
-
+dat1 <- dat1 %>% 
+  select(nome, nivel, defesa, orientador)
 
 
 ```
@@ -81,7 +82,13 @@ Column {.tabset}
 
 
 ```{r}
-datatable(sd)
+datatable(sd, class = 'cell-border stripe'),
+  
+  options = list(
+    pageLength= 15,
+    scroller = TRUE
+  )
+)
 ```
 
 
@@ -90,9 +97,7 @@ datatable(sd)
 
 
 ```{r}
-
-
-p_orientador <- dat1 %>% 
+ dat1 %>% 
   tabyl(orientador) %>% 
   ggplot(aes(reorder(orientador, n), n))+
   geom_col(fill = "#558796")+
@@ -102,7 +107,6 @@ p_orientador <- dat1 %>%
         plot.margin = margin(2, 2, 2, 2, "cm"))+
   labs(x = "", y = "Número de orientadors", title = "Orientador")
   
-ggplotly(p_orientador)
   
 ```
 
