@@ -32,12 +32,15 @@ library(ggthemes)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
 
-dat1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
 
 
-dat1 <- dat1 %>% 
+dat1 <- dat0 %>% 
   select(nome, nivel, defesa, orientador, vinculo)
 
+
+dat2 <- dat0 %>% 
+  select(nome, nivel, defesa, sexo, orientador, vinculo, nacionalidade)
 
 ```
 
@@ -73,7 +76,7 @@ filter_checkbox("Nível", "Nível", sd, ~ nivel,
 ```
 
 
-Column {data-width=700 .tabset}
+Column {data-width=600 .tabset}
 -------------------------------------
 
 
@@ -100,7 +103,8 @@ dat1 %>%
   geom_bar()+
   theme_minimal_hgrid(font_size = 9)+
   
-  scale_fill_pander()
+  scale_fill_pander()+
+  labs(x = "Nível", y = "Número de egressos")
 ```
 
 
@@ -113,7 +117,8 @@ dat1 %>%
   ggplot(aes(defesa, n, fill = nivel))+
   geom_col()+
     theme_minimal_hgrid(font_size = 9)+
-  scale_fill_pander()
+  scale_fill_pander() +
+  labs(x = "Ano de defesa", y = "Número de egressos")
 ```
 
 
@@ -128,11 +133,40 @@ dat1 %>%
   geom_col()+
   coord_flip()+
   scale_fill_pander()+
-    theme_minimal_hgrid(font_size = 9)
+    theme_minimal_vgrid(font_size = 9)+
+  labs(x = "", y = "Número de egressos")
 ```
 
 
-Column {data-width=300}
+### Egressos por sexo
+```{r}
+
+dat2 %>% 
+  tabyl(sexo,  nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(sexo, n),y=  n, fill = nivel))+
+  geom_col()+
+  scale_fill_pander()+
+    theme_minimal_vgrid(font_size = 9)+
+  labs(x = "Sexo", y = "Número de egressos")
+```
+
+
+### Vinculo atual
+
+```{r}
+dat1 %>% 
+   tabyl(vinculo,  nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(vinculo, n), y= n,  fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  theme_minimal_vgrid(font_size = 9)+
+    scale_fill_pander()
+```
+
+
+Column {data-width=400}
 -------------------------------------
 
 
@@ -143,23 +177,25 @@ Column {data-width=300}
 dat1 %>% 
   ggplot(aes(x = nivel, fill = nivel))+
   geom_bar()+
-    scale_fill_pander()
+    scale_fill_pander()+
+  labs(x = "Nível", y = "Número de egressos")
 ```
 
 
-### Defesas por ano
-
+### Estrangeiros
 
 ```{r}
-library(cowplot)
-theme_set(theme_minimal_hgrid())
-dat1 %>% 
-  tabyl(defesa, nivel) %>% 
-  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(defesa, n, fill = nivel))+
+
+dat2 %>% 
+  filter(nacionalidade != "Brasil") %>% 
+     tabyl(nacionalidade,  nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel" , values_to = "n") %>% 
+  ggplot(aes(x = reorder(nacionalidade, n), y = n, fill = nivel))+
   geom_col()+
-  
-  scale_fill_pander()
+  coord_flip()+
+    scale_fill_pander()+
+  theme_minimal_vgrid()+
+  labs(x = "", y = "Número de egressos")
 ```
 
 Atualize seus dados
