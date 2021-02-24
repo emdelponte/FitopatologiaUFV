@@ -86,7 +86,7 @@ Column {data-width=600 .tabset}
 ```{r}
 datatable(sd, 
            options = list(
-    pageLength= 15,
+    pageLength= 10,
     scroller = TRUE
   )
 )
