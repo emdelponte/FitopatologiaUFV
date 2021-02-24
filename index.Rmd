@@ -76,7 +76,7 @@ filter_checkbox("Nível", "Nível", sd, ~ nivel,
 ```
 
 
-Column {data-width=600 .tabset}
+Column {data-width=700 .tabset}
 -------------------------------------
 
 
@@ -166,7 +166,7 @@ dat1 %>%
 ```
 
 
-Column {data-width=400}
+Column {data-width=300}
 -------------------------------------
 
 
