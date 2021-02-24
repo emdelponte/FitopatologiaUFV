@@ -163,7 +163,7 @@ dat2 %>%
   geom_col()+
   coord_flip()+
     scale_fill_pander()+
-  theme_minimal_vgrid()+
+  theme_minimal_vgrid(font_size = 10)+
   labs(x = "", y = "Número de egressos")
 ```
 
