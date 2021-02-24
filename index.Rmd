@@ -73,7 +73,7 @@ filter_checkbox("Nível", "Nível", sd, ~ nivel,
 ```
 
 
-Column {data-width=750 .tabset}
+Column {data-width=700 .tabset}
 -------------------------------------
 
 
@@ -132,7 +132,7 @@ dat1 %>%
 ```
 
 
-Column {data-width=250}
+Column {data-width=300}
 -------------------------------------
 
 
@@ -143,8 +143,7 @@ Column {data-width=250}
 dat1 %>% 
   ggplot(aes(x = nivel, fill = nivel))+
   geom_bar()+
-    scale_fill_pander()+
-    theme_minimal_hgrid(font_size = 12)
+    scale_fill_pander()
 ```
 
 
@@ -159,7 +158,6 @@ dat1 %>%
   pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
   ggplot(aes(defesa, n, fill = nivel))+
   geom_col()+
-    theme_minimal_hgrid(font_size = 12)
   
   scale_fill_pander()
 ```
