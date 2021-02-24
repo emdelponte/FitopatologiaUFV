@@ -2,7 +2,7 @@
 title: "Egressos Fitopatologia UFV"
 output: 
   flexdashboard::flex_dashboard:
-    theme: flatly
+    theme: united
     
 ---
 
@@ -36,7 +36,7 @@ dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKsc
 
 
 dat1 <- dat0 %>% 
-  select(nome, nivel, defesa, orientador, vinculo)
+  select(nome, nivel, defesa, orientador, municipio, nacionalidade, vinculo)
 
 
 dat2 <- dat0 %>% 
@@ -84,7 +84,7 @@ Column {data-width=700 .tabset}
 
 
 ```{r}
-datatable(sd, 
+datatable(sd, rownames = FALSE,
            options = list(
     pageLength= 15,
     scroller = TRUE
@@ -147,7 +147,7 @@ dat2 %>%
   ggplot(aes(x = reorder(sexo, n),y=  n, fill = nivel))+
   geom_col()+
   scale_fill_pander()+
-    theme_minimal_vgrid(font_size = 9)+
+    theme_minimal_hgrid(font_size = 9)+
   labs(x = "Sexo", y = "Número de egressos")
 ```
 
@@ -181,40 +181,7 @@ dat1 %>%
     scale_fill_pander()
 ```
 
-
-Column {data-width=300}
--------------------------------------
-
-
-### Defesas por nível
-
-```{r}
-
-dat1 %>% 
-  ggplot(aes(x = nivel, fill = nivel))+
-  geom_bar()+
-    scale_fill_pander()+
-  labs(x = "Nível", y = "Número de egressos")
-```
-
-
-### Estrangeiros
-
-```{r}
-
-dat2 %>% 
-  filter(nacionalidade != "Brasil") %>% 
-     tabyl(nacionalidade,  nivel) %>% 
-  pivot_longer(2:3, names_to = "nivel" , values_to = "n") %>% 
-  ggplot(aes(x = reorder(nacionalidade, n), y = n, fill = nivel))+
-  geom_col()+
-  coord_flip()+
-    scale_fill_pander()+
-  theme_minimal_vgrid()+
-  labs(x = "", y = "Número de egressos")
-```
-
-Atualize seus dados
+Atualização de dados para ex-aluno (em construção)
 ============
 
 
