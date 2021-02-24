@@ -1,0 +1,116 @@
+---
+title: "Egressos Fitopatologia UFV"
+output: 
+  flexdashboard::flex_dashboard:
+    
+    source_code: embed
+    theme: united
+    social: menu
+    css: style2.css
+    
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(flexdashboard)
+library(tidyverse)
+library(crosstalk)
+library(plotly)
+library(viridis)
+library(gsheet)
+library(leaflet.providers)
+library(leaflet)
+library(DT)
+library(janitor)
+```
+
+
+
+```{r load data, message=FALSE, warning=FALSE, include=FALSE}
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+
+dat1 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+
+
+
+
+
+```
+
+
+
+```{r all table, echo=FALSE}
+sd <- SharedData$new(dat1)
+
+```
+
+
+Dashboard 
+============
+
+
+Column {.sidebar}
+-------------------------------------
+
+
+
+### Quick filter
+
+
+```{r}
+filter_slider("Ano de defesa", "Restringe aos anos", sd, ~defesa)
+filter_select("orientador", "Orientador", sd, ~orientador)
+filter_checkbox("Nível", "Nível", sd, ~ nivel, 
+                inline = TRUE)
+
+```
+
+
+Column {.tabset}
+-------------------------------------
+
+
+### <i class="fa fa-table" aria-hidden="true"></i> Planilha
+
+
+```{r}
+datatable(sd)
+```
+
+
+### <i class="fa fa-chart-bar" aria-hidden="true"></i> Orientador
+
+
+
+```{r}
+
+
+p_orientador <- dat1 %>% 
+  tabyl(orientador) %>% 
+  ggplot(aes(reorder(orientador, n), n))+
+  geom_col(fill = "#558796")+
+  theme_minimal()+
+  coord_flip()+
+  theme(legend.position = "none", 
+        plot.margin = margin(2, 2, 2, 2, "cm"))+
+  labs(x = "", y = "Número de orientadors", title = "Orientador")
+  
+ggplotly(p_orientador)
+  
+```
+
+
+
+O Programa
+============
+
+
+Column {.tabset}
+-------------------------------------
