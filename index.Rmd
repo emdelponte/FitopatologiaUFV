@@ -152,6 +152,22 @@ dat2 %>%
 ```
 
 
+### Total estrangeiro/país de origem
+```{r}
+
+dat2 %>% 
+  filter(nacionalidade != "Brasil") %>% 
+     tabyl(nacionalidade,  nivel) %>% 
+  pivot_longer(2:3, names_to = "nivel" , values_to = "n") %>% 
+  ggplot(aes(x = reorder(nacionalidade, n), y = n, fill = nivel))+
+  geom_col()+
+  coord_flip()+
+    scale_fill_pander()+
+  theme_minimal_vgrid()+
+  labs(x = "", y = "Número de egressos")
+```
+
+
 ### Vinculo atual
 
 ```{r}
