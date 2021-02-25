@@ -115,6 +115,8 @@ vinculo <- dat1 %>%
   geom_col()+
   coord_flip()+
   theme_minimal_vgrid(font_size = 9)+
-    scale_fill_pander()
+    scale_fill_pander()+
+  
+  labs(x = "", y = "Número de egressos")
 ggplotly(vinculo)
 ```
