@@ -1,0 +1,16 @@
+name: "UFVFitopatologia"
+title: "Egressos PPG Fitopatologia"
+theme: fitopatologia.css
+description: |
+  Egressos
+output_dir: "docs"
+navbar:
+  left:
+    - text: "Apresentação"
+      href: index.html
+    - text: "Consulta à base de dados"
+      href: egressos.html
+    - text: "Sumários estatísticos"
+      href: graficos.html
+
+output: distill::distill_article

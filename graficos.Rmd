@@ -1,0 +1,115 @@
+---
+title: "&nbsp;"
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+
+---
+
+```{r setup, include=FALSE}
+
+library(janitor)
+library(gsheet)
+library(tidyverse)
+library(crosstalk)
+library(DT)
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+
+dat1 <- dat0 %>% 
+  select(`Nome do egresso`, Nível, Sexo, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+
+```
+
+### Defesas por nível
+
+```{r echo=FALSE}
+library(cowplot)
+library(ggthemes)
+library(plotly)
+theme_set(theme_minimal_hgrid())
+
+nivel <- dat1 %>% 
+  ggplot(aes(x = Nível, fill = Nível))+
+  geom_bar()+
+  theme_minimal_hgrid(font_size = 9)+
+  scale_fill_pander()+
+  labs(x = "Nível", y = "Número de egressos")
+ggplotly(nivel)
+```
+
+
+### Total defesas/ano
+
+```{r echo=FALSE}
+dat1 %>% 
+  tabyl(Defesa, Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(Defesa, n, fill = nivel))+
+  geom_col()+
+    theme_minimal_hgrid(font_size = 9)+
+  scale_fill_pander() +
+  labs(x = "Ano de defesa", y = "Número de egressos")
+```
+
+
+### Total defesas/orientador
+
+```{r echo=FALSE}
+
+dat1 %>% 
+  tabyl(Orientador, Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(Orientador, n),y=  n, fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  scale_fill_pander()+
+    theme_minimal_vgrid(font_size = 9)+
+  labs(x = "", y = "Número de egressos")
+```
+
+
+### Egressos por sexo
+```{r echo=FALSE}
+dat1 %>% 
+  tabyl(Sexo,  Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(Sexo, n),y=  n, fill = nivel))+
+  geom_col()+
+  scale_fill_pander()+
+    theme_minimal_hgrid(font_size = 9)+
+  labs(x = "Sexo", y = "Número de egressos")
+```
+
+
+### Total estrangeiro/país de origem
+```{r echo=FALSE}
+
+dat1 %>% 
+  filter(Nacionalidade != "Brasil") %>% 
+     tabyl(Nacionalidade,  Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel" , values_to = "n") %>% 
+  ggplot(aes(x = reorder(Nacionalidade, n), y = n, fill = nivel))+
+  geom_col()+
+  coord_flip()+
+    scale_fill_pander()+
+  theme_minimal_vgrid(font_size = 10)+
+  labs(x = "", y = "Número de egressos")
+```
+
+
+### Vínculo atual
+
+```{r echo=FALSE}
+dat1 %>% 
+   tabyl(`Tipo de vínculo`,  Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(`Tipo de vínculo`, n), y= n,  fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  theme_minimal_vgrid(font_size = 9)+
+    scale_fill_pander()
+```

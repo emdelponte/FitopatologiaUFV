@@ -1,0 +1,44 @@
+---
+title: "&nbsp;"
+---
+
+```{r setup, include=FALSE}
+
+library(gsheet)
+library(tidyverse)
+library(crosstalk)
+library(DT)
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+
+dat1 <- dat0 %>% 
+  select(`Nome do egresso`, Nível, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+sd <- SharedData$new(dat1)
+
+
+```
+
+
+
+
+```{r echo=FALSE, layout="l-body-outset"}
+
+bscols(
+ filter_slider("Ano de defesa", "Restringe aos anos", sd, ~Defesa,
+              round = TRUE),
+
+filter_select("orientador", "Orientador", sd, ~Orientador,
+              multiple = FALSE),
+filter_checkbox("Nível", "Nível", sd, ~ Nível, 
+                inline = TRUE)
+)
+
+ datatable(sd, rownames = FALSE,
+             class = 'table-bordered table-condensed')
+           
+
+
+```
+
+
