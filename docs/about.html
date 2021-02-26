@@ -2127,7 +2127,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   html {
     /*-- Main font sizes --*/
     --title-size:      50px;
-    --body-size:       1.06rem;
+    --body-size:       1rem;
     --code-size:       14px;
     --aside-size:      12px;
     --fig-cap-size:    13px;
@@ -2146,23 +2146,23 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /*-- ARTICLE METADATA --*/
   d-byline {
-    --heading-size:    0.6rem;
+    --heading-size:    0.6arem;
     --heading-color:   rgba(0, 0, 0, 0.5);
-    --body-size:       0.8rem;
+    --body-size:       1rem;
     --body-color:      rgba(0, 0, 0, 0.8);
   }
 
   /*-- ARTICLE TABLE OF CONTENTS --*/
   .d-contents {
-    --heading-size:    18px;
-    --contents-size:   13px;
+    --heading-size:    16px;
+    --contents-size:   14px;
   }
 
   /*-- ARTICLE APPENDIX --*/
   d-appendix {
     --heading-size:    15px;
     --heading-color:   rgba(0, 0, 0, 0.65);
-    --text-size:       0.8em;
+    --text-size:       0.9em;
     --text-color:      rgba(0, 0, 0, 0.5);
   }
 
@@ -2170,9 +2170,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --title-size:       18px;
+    --title-size:       17px;
     --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        17px;
+    --text-size:        16px;
     --hover-color:      white;
     --bkgd-color:       #10a767;
   }
@@ -2181,7 +2181,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --text-color:       rgba(255, 255, 255, 0.8);
     --text-size:        15px;
     --hover-color:      white;
-    --bkgd-color:       #0F2E3D;
+    --bkgd-color:       #10a767;
   }
 
   /*-- Additional custom styles --*/
@@ -2373,7 +2373,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <a href="index.html" class="title">Egressos PPG Fitopatologia</a>
 <a href="index.html">Apresentação</a>
 <a href="egressos.html">Consulta à base de dados</a>
-<a href="graficos.html">Sumários estatísticos</a>
+<div class="nav-dropdown">
+<button class="nav-dropbtn">
+Estatísticas
+ 
+<span class="down-arrow">&#x25BE;</span>
+</button>
+<div class="nav-dropdown-content">
+<a href="graficos.html">Egressos por nível e ano</a>
+<a href="graficos-orientador.html">Por orientador</a>
+<a href="graficos-estrangeiros.html">Egressos do exterior</a>
+<a href="graficos-vinculos.html">Vínculo e destino</a>
+</div>
+</div>
 </div>
 <div class="nav-right">
 <a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
@@ -2408,7 +2420,26 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="appendix-bottom"></div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
+<div class="distill-site-nav distill-site-footer">
+<html>
+
+<head>
+<title>Title</title>
+</head>
+
+<body>
+
+<a href = "http://www.dfp.ufv.br/pos"> Programa de Pós graduação em Fitopatologia UFV </a> | 
+<a href = "http://www.dfp.ufv.br"> Departamento de Fitopatologia </a> | 
+<a  href = "http://www.ufv.br"> Universidade Federal de Viçosa</a> | 
+<a href = "mailto: pos.fitopatologia@ufv.br">Contato por email</a>
+
+
+</body>
+</html>
+</div>
 <!--/radix_placeholder_navigation_after_body-->
+
 
 </body>
 

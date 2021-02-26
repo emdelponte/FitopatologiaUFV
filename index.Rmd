@@ -4,13 +4,10 @@ title: "&nbsp;"
 site: distill::distill_website
 ---
 
+# Egressos Fitopatologia UFV
 
-# Apresentação
+![](dfp.jpg){style="float: right"}
 
-Bem-vindo à página de consulta interativa à base de dados dos egressos do Programa de Pós-graduação em Fitopatologia da Universidade Federal de Viçosa. Nesta página é possível consultar os dados de cada egresso individualmente bem como visualizar estatísticas diversas como número de titulados por nível, orientador, ano, origem (nascimento) e tipo de vínculo atual. 
+Bem-vindo à página de consulta interativa à **Base de dados de egressos** do Programa de Pós-graduação em Fitopatologia da Universidade Federal de Viçosa. Nesta página é possível consultar os dados de cada egresso individualmente bem como visualizar estatísticas diversas como número de titulados por nível, orientador, ano, origem (nascimento) e tipo de vínculo atual.
 
-As informações são atualizadas continuamente por meio de consulta direta aos egressos e orientadores. Se você é egresso do Programa, nos auxilie a manter a base de dados atualizada acessando o formulário de atualização de dados. 
-
-
-
-
+As informações são atualizadas continuamente por meio de consulta direta aos egressos e orientadores. Se você é egresso do Programa, nos auxilie a manter a base de dados atualizada acessando o formulário de atualização de dados nesta página.

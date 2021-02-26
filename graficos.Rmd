@@ -24,7 +24,7 @@ dat1 <- dat0 %>%
 
 ```
 
-### Defesas por nível
+### Egressos por nível
 
 ```{r echo=FALSE}
 library(cowplot)
@@ -37,12 +37,12 @@ nivel <- dat1 %>%
   geom_bar()+
   theme_minimal_hgrid(font_size = 9)+
   scale_fill_pander()+
-  labs(x = "Nível", y = "Número de egressos")
+  labs(x = "Nível", y = "Número de egressos", fill = "Nível")
 ggplotly(nivel)
 ```
 
 
-### Total defesas/ano
+### Egressos por ano e nível
 
 ```{r echo=FALSE}
 defesa_ano <- dat1 %>% 
@@ -52,71 +52,8 @@ defesa_ano <- dat1 %>%
   geom_col()+
     theme_minimal_hgrid(font_size = 9)+
   scale_fill_pander() +
-  labs(x = "Ano de defesa", y = "Número de egressos")
+  labs(x = "Ano de defesa", y = "Número de egressos", fill = "Nível")
 ggplotly(defesa_ano)
 ```
 
 
-### Total defesas/orientador
-
-```{r echo=FALSE}
-
-defesa_orientador <- dat1 %>% 
-  tabyl(Orientador, Nível) %>% 
-  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(x = reorder(Orientador, n),y=  n, fill = nivel))+
-  geom_col()+
-  coord_flip()+
-  scale_fill_pander()+
-    theme_minimal_vgrid(font_size = 9)+
-  labs(x = "", y = "Número de egressos")
-ggplotly(defesa_orientador)
-```
-
-
-### Egressos por sexo
-```{r echo=FALSE}
-sexo <- dat1 %>% 
-  tabyl(Sexo,  Nível) %>% 
-  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(x = reorder(Sexo, n),y=  n, fill = nivel))+
-  geom_col()+
-  scale_fill_pander()+
-    theme_minimal_hgrid(font_size = 9)+
-  labs(x = "Sexo", y = "Número de egressos")
-ggplotly(sexo)
-```
-
-
-### Total estrangeiro/país de origem
-```{r echo=FALSE}
-
-estrangeiro <- dat1 %>% 
-  filter(Nacionalidade != "Brasil") %>% 
-     tabyl(Nacionalidade,  Nível) %>% 
-  pivot_longer(2:3, names_to = "nivel" , values_to = "n") %>% 
-  ggplot(aes(x = reorder(Nacionalidade, n), y = n, fill = nivel))+
-  geom_col()+
-  coord_flip()+
-    scale_fill_pander()+
-  theme_minimal_vgrid(font_size = 10)+
-  labs(x = "", y = "Número de egressos")
-ggplotly(estrangeiro)
-```
-
-
-### Vínculo atual
-
-```{r echo=FALSE}
-vinculo <- dat1 %>% 
-   tabyl(`Tipo de vínculo`,  Nível) %>% 
-  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(x = reorder(`Tipo de vínculo`, n), y= n,  fill = nivel))+
-  geom_col()+
-  coord_flip()+
-  theme_minimal_vgrid(font_size = 9)+
-    scale_fill_pander()+
-  
-  labs(x = "", y = "Número de egressos")
-ggplotly(vinculo)
-```

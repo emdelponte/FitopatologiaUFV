@@ -1,0 +1,48 @@
+---
+title: "&nbsp;"
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+
+---
+
+
+
+```{r setup, include=FALSE}
+
+library(janitor)
+library(gsheet)
+library(tidyverse)
+library(crosstalk)
+library(plotly)
+library(ggthemes)
+library(cowplot)
+library(DT)
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+
+dat1 <- dat0 %>% 
+  select(`Nome do egresso`, Nível, Sexo, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+
+```
+
+### Total defesas/orientador
+
+```{r echo=FALSE}
+
+defesa_orientador <- dat1 %>% 
+  tabyl(Orientador, Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(Orientador, n),y=  n, fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  scale_fill_pander()+
+    theme_minimal_vgrid(font_size = 9)+
+  labs(x = "", y = "Número de egressos", fill = "Nível")
+ggplotly(defesa_orientador)
+```
+
+

@@ -8,9 +8,18 @@ navbar:
   left:
     - text: "Apresentação"
       href: index.html
-    - text: "Consulta à base de dados"
+    - text: "Consulta interativa"
       href: egressos.html
-    - text: "Sumários estatísticos"
+    - text: "Estatísticas"
       href: graficos.html
+      menu:
+        - text: "Egressos por nível e ano"
+          href: graficos.html
+        - text: "Por orientador"
+          href: graficos-orientador.html
+        - text: "Egressos do exterior"
+          href: graficos-estrangeiros.html
+        - text: "Vínculo e destino"
+          href: graficos-vinculos.html
 
 output: distill::distill_article

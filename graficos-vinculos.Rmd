@@ -1,0 +1,45 @@
+---
+title: "&nbsp;"
+output:
+  distill::distill_article:
+    toc: true
+    toc_depth: 3
+
+---
+
+```{r setup, include=FALSE}
+
+library(janitor)
+library(gsheet)
+library(tidyverse)
+library(crosstalk)
+library(DT)
+library(ggthemes)
+library(cowplot)
+library(plotly)
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+
+dat1 <- dat0 %>% 
+  select(`Nome do egresso`, Nível, Sexo, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+
+```
+
+
+### Vínculo atual
+
+```{r echo=FALSE}
+vinculo <- dat1 %>% 
+   tabyl(`Tipo de vínculo`,  Nível) %>% 
+  pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
+  ggplot(aes(x = reorder(`Tipo de vínculo`, n), y= n,  fill = nivel))+
+  geom_col()+
+  coord_flip()+
+  theme_minimal_vgrid(font_size = 9)+
+    scale_fill_pander()+
+  
+  labs(x = "", y = "Número de egressos", fill = "Nível" )
+ggplotly(vinculo)
+```

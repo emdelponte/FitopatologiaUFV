@@ -1,12 +1,6 @@
 ---
 title: "&nbsp;"
-output:
-  distill::distill_article:
-    toc: true
-    toc_depth: 3
 ---
-
-### Planilha interativa
 
 ```{r setup, include=FALSE}
 
@@ -14,10 +8,6 @@ library(gsheet)
 library(tidyverse)
 library(crosstalk)
 library(DT)
-library(ggthemes)
-library(janitor)
-library(cowplot)
-library(plotly)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
 dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
@@ -28,6 +18,7 @@ sd <- SharedData$new(dat1)
 
 
 ```
+
 
 
 
@@ -52,10 +43,5 @@ filter_checkbox("Nível", "Nível", sd, ~ Nível,
 
 
 ```
-
-### Tipo de vínculo 
-
-
-Autônomo, doutorando (UFV, Brasil ou exterior),  docente (estadual, federal, privado ou exterior), pesquisador (público, privado, colaborador UFV), pos-doc (Brasil, exterior), outra graduação, servidor público
 
 
