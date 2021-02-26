@@ -30,8 +30,9 @@ dat1 <- dat0 %>%
 library(tidytext)
 
 cbfito_words <- dat1 %>%
+  filter(Defesa > 1976) %>% 
   unnest_tokens(word, `Título do trabalho`)
-head(cbfito_words)
+cbfito_words
 
 
 cbfito_words %>%
@@ -82,11 +83,11 @@ words_freq %>%
   # filter(n > 5) %>%
   with(wordcloud(word,
     n,
-    scale = c(10, 0.3),
+    scale = c(8, 0.4),
     max.words = 500,
-    min.freq = 2,
+    min.freq = 1,
     random.order = FALSE,
-    rot.per = 0.40, colors=brewer.pal(8, "Dark2")))
+    rot.per = 0.40, colors=brewer.pal(7, "Dark2")))
 dev.off()
 
 ```

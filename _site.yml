@@ -21,5 +21,7 @@ navbar:
           href: graficos-estrangeiros.html
         - text: "Vínculo e destino"
           href: graficos-vinculos.html
+        - text: "Assuntos estudados"
+          href: graficos-assuntos.html
 
 output: distill::distill_article
