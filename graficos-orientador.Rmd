@@ -2,7 +2,7 @@
 title: "&nbsp;"
 output:
   distill::distill_article:
-    toc: true
+    toc: false
     toc_depth: 3
 
 ---
@@ -19,13 +19,14 @@ library(plotly)
 library(ggthemes)
 library(cowplot)
 library(DT)
+library(htmlwidgets)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
 
-dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1YfZlPXn9jwRfneV4j5lmNpRQcQh0LWc8/edit?usp=sharing&ouid=116573839171815179218&rtpof=true&sd=true")
 
 dat1 <- dat0 %>% 
-  select(`Nome do egresso`, Nível, Sexo, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+  select(`Nome do egresso`, Nível, `Gênero`, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
 
 ```
 
@@ -36,13 +37,30 @@ dat1 <- dat0 %>%
 defesa_orientador <- dat1 %>% 
   tabyl(Orientador, Nível) %>% 
   pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(x = reorder(Orientador, n),y=  n, fill = nivel))+
-  geom_col()+
-  coord_flip()+
-  scale_fill_pander()+
-    theme_minimal_vgrid(font_size = 9)+
+  ggplot(aes(x = reorder(Orientador, n), y = n, fill = nivel, text = Orientador)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_pander() +
+  theme_minimal_vgrid(font_size = 9) +
   labs(x = "", y = "Número de egressos", fill = "Nível")
-ggplotly(defesa_orientador)
+
+# Convertendo para plotly
+p <- ggplotly(defesa_orientador, tooltip = "text") %>%
+  layout(title = "Número de Egressos por Orientador") 
+
+# Adicionando interação para abrir links ao clicar no nome do orientador
+p <- p %>% onRender("
+  function(el, x) {
+    el.on('plotly_click', function(d) {
+      var idx = d.points[0].pointIndex;
+      var links = x.data[0].customdata; 
+      window.open(links[idx]);
+    });
+  }
+", data = list(customdata = dat1$Link))
+
+ggplotly(p)
+
 ```
 
 

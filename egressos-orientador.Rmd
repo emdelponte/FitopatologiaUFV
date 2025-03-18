@@ -1,5 +1,9 @@
 ---
 title: "&nbsp;"
+output:
+  distill::distill_article:
+    toc: false
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -10,7 +14,7 @@ library(crosstalk)
 library(DT)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
-dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1YfZlPXn9jwRfneV4j5lmNpRQcQh0LWc8/edit?gid=2097200067#gid=2097200067")
 
 dat1 <- dat0 %>% 
   select(`Nome do egresso`, Nível, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 

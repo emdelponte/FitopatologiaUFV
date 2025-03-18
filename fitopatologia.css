@@ -1,78 +1,170 @@
 
-/* base variables */
-
-/* Edit the CSS properties in this file to create a custom
-   Distill theme. Only edit values in the right column
-   for each row; values shown are the CSS defaults.
-   To return any property to the default,
-   you may set its value to: unset
-   All rows must end with a semi-colon.                      */
-
-/* Optional: embed custom fonts here with `@import`          */
-/* This must remain at the top of this file.                 */
-
-
-
 html {
-  /*-- Main font sizes --*/
-  --title-size:      28px;
-  --body-size:       1rem;
-  --code-size:       14px;
-  --aside-size:      12px;
-  --fig-cap-size:    13px;
-  /*-- Main font colors --*/
-  --title-color:     #000000;
-  --header-color:    rgba(0, 0, 0, 0.8);
-  --body-color:      rgba(0, 0, 0, 0.8);
-  --aside-color:     rgba(0, 0, 0, 0.6);
-  --fig-cap-color:   rgba(0, 0, 0, 0.6);
-  /*-- Specify custom fonts ~~~ must be imported above   --*/
-  --heading-font:    sans-serif;
-  --mono-font:       monospace;
-  --body-font:       sans-serif;
-  --navbar-font:     sans-serif;  /* websites + blogs only */
-}
+  /* Fontes do Google */
+  --title-font: 'Roboto', sans-serif;
+  --body-font: 'Open Sans', sans-serif;
+  --mono-font: 'Courier New', monospace;
+  --navbar-font: 'Open Sans', sans-serif;
 
-/*-- ARTICLE METADATA --*/
-d-byline {
-  --heading-size:    0.6arem;
-  --heading-color:   rgba(0, 0, 0, 0.5);
-  --body-size:       1rem;
-  --body-color:      rgba(0, 0, 0, 0.8);
-}
+  /* Tamanho das fontes */
+  --title-size: 30px;
+  --body-size: 1.125rem;  /* Corpo do texto maior */
+  --code-size: 15px;
+  --aside-size: 13px;
+  --fig-cap-size: 14px;
 
-/*-- ARTICLE TABLE OF CONTENTS --*/
-.d-contents {
-  --heading-size:    16px;
-  --contents-size:   14px;
+  /* Cores dos textos */
+  --title-color: #000000;   /* Cor do título */
+  --header-color: rgba(0, 0, 0, 0.8);  /* Cor do cabeçalho */
+  --body-color: #34495e;  /* Cor do corpo */
+  --aside-color: rgba(0, 0, 0, 0.6); /* Cor do texto do aside */
+  --fig-cap-color: rgba(0, 0, 0, 0.6); /* Cor da legenda */
 }
-
-/*-- ARTICLE APPENDIX --*/
-d-appendix {
-  --heading-size:    15px;
-  --heading-color:   rgba(0, 0, 0, 0.65);
-  --text-size:       0.9em;
-  --text-color:      rgba(0, 0, 0, 0.5);
-}
-
-/*-- WEBSITE HEADER + FOOTER --*/
-/* These properties only apply to Distill sites and blogs  */
 
 .distill-site-header {
-  --title-size:       17px;
-  --text-color:       rgba(255, 255, 255, 0.8);
-  --text-size:        16px;
-  --hover-color:      white;
-  --bkgd-color:       #10a767;
+  --title-size: 20px;
+  --text-color: #fff;
+  --text-size: 18px;
+  --hover-color: #ecf0f1;
+  --bkgd-color: #10a767;  /* Verde definido, sem alteração */
 }
 
 .distill-site-footer {
-  --text-color:       rgba(255, 255, 255, 0.8);
-  --text-size:        15px;
-  --hover-color:      white;
-  --bkgd-color:       #10a767;
+  --text-color: #fff;
+  --text-size: 14px;
+  --hover-color: #ecf0f1;
+  --bkgd-color: #10a767;  /* Verde definido, sem alteração */
+}
+/* Estilo de navegação */
+.navbar {
+  background-color: #10a767;  /* Cor de fundo verde */
+  color: #fff;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-family: var(--navbar-font);
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
-/*-- Additional custom styles --*/
-/* Add any additional CSS rules below                      */
+.navbar a {
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, padding 0.2s ease;
+}
+
+.navbar a:hover {
+  background-color: #16a085;  /* Cor mais escura no hover */
+  color: #ecf0f1;
+}
+
+.navbar a.active {
+  background-color: #e74c3c;  /* Cor ativa */
+  color: #fff;
+}
+
+/* Espaçamento e alinhamento do conteúdo */
+body {
+  font-family: var(--body-font);
+  font-size: var(--body-size);
+  line-height: 1.6;
+  color: var(--body-color);
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;  /* Fundo neutro para destacar o conteúdo */
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Para o título */
+h1, h2, h3, h4 {
+  font-family: var(--title-font);
+  font-size: var(--title-size);
+  color: var(--title-color);
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Estilo de links */
+a {
+  text-decoration: none;
+  color: #10a767;  /* Cor do link */
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #16a085;  /* Efeito de hover */
+}
+/* Footer mais moderno */
+.distill-site-footer {
+  background-color: #10a767;  /* Cor definida */
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.distill-site-footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.distill-site-footer a:hover {
+  color: #ecf0f1;
+}
+
+/* Remover ou ajustar o estilo do TOC */
+.d-contents {
+  display: none;  /* Esconde o conteúdo do índice */
+}
+
+/* Caso queira ajustar a aparência ao invés de esconder */
+.d-contents {
+  font-size: 14px;
+  color: var(--aside-color);
+  background-color: #f2f2f2;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+/* Figuras com borda suave e centralização */
+figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;  /* Bordas arredondadas nas imagens */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave para profundidade */
+}
+
+/* Tabelas mais organizadas */
+table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #10a767;  /* Cor de fundo do cabeçalho */
+  color: white;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+} 
 

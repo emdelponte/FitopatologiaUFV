@@ -1,0 +1,42 @@
+---
+title: "&nbsp;"
+output:
+  distill::distill_article:
+    toc: false
+    toc_depth: 3
+---
+```{r setup, include=FALSE}
+
+library(janitor)
+library(gsheet)
+library(tidyverse)
+library(crosstalk)
+library(DT)
+library(ggthemes)
+library(cowplot)
+library(plotly)
+Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
+
+
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1YfZlPXn9jwRfneV4j5lmNpRQcQh0LWc8/edit?gid=2097200067#gid=2097200067")
+
+dat1 <- dat0 %>% 
+  select(`Nome do egresso`, Nível, `Gênero`, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+
+```
+
+```{r echo=FALSE}
+genero <- dat1 %>% 
+  tabyl(Gênero) %>%  # Contagem de egressos por Gênero
+  ggplot(aes(x = Gênero, y = n, fill = Gênero)) +  # Contagem para Feminino e Masculino
+  geom_col() + 
+  scale_fill_pander()+
+  theme_minimal_vgrid(font_size = 9) + 
+  labs(x = "", y = "Número de egressos", fill = "Gênero")  # Títulos e rótulos
+
+# Convertendo para gráfico interativo com plotly
+ggplotly(genero)
+```
+
+<!-- Nota explicativa -->
+<p><i>Nota: Os dados de gênero foram preenchidos com base em um formulário de autodeclaração.</i></p>

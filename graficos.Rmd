@@ -2,9 +2,8 @@
 title: "&nbsp;"
 output:
   distill::distill_article:
-    toc: true
+    toc: false
     toc_depth: 3
-
 ---
 
 ```{r setup, include=FALSE}
@@ -17,10 +16,10 @@ library(DT)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
 
-dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1YfZlPXn9jwRfneV4j5lmNpRQcQh0LWc8/edit?usp=sharing&ouid=116573839171815179218&rtpof=true&sd=true")
 
 dat1 <- dat0 %>% 
-  select(`Nome do egresso`, Nível, Sexo, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
+  select(`Nome do egresso`, Nível, `Gênero`, Orientador, Defesa, Nacionalidade, `Tipo de vínculo`) 
 
 ```
 
@@ -48,11 +47,15 @@ ggplotly(nivel)
 defesa_ano <- dat1 %>% 
   tabyl(Defesa, Nível) %>% 
   pivot_longer(2:3, names_to = "nivel", values_to = "n") %>% 
-  ggplot(aes(Defesa, n, fill = nivel))+
-  geom_col()+
-    theme_minimal_hgrid(font_size = 9)+
+  ggplot(aes(Defesa, n, fill = nivel)) +
+  geom_col() +
+  theme_minimal_hgrid(font_size = 9) +
   scale_fill_pander() +
-  labs(x = "Ano de defesa", y = "Número de egressos", fill = "Nível")
+  scale_x_continuous(
+    breaks = seq(min(dat1$Defesa), max(dat1$Defesa), by = 5)  
+  )+
+  labs(x = "Ano de defesa", y = "Número de egressos", fill = "Nível") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ggplotly(defesa_ano)
 ```
 

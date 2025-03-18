@@ -6,8 +6,6 @@ description: |
 output_dir: "docs"
 navbar:
   left:
-    - text: "Apresentação"
-      href: index.html
     - text: "Consulta interativa"
       href: egressos.html
     - text: "Estatísticas"
@@ -15,13 +13,22 @@ navbar:
       menu:
         - text: "Egressos por nível e ano"
           href: graficos.html
-        - text: "Por orientador"
+        - text: "Egressos por orientador"
           href: graficos-orientador.html
         - text: "Egressos do exterior"
           href: graficos-estrangeiros.html
+        - text: "Egressos por gênero"
+          href: genero.html
         - text: "Vínculo e destino"
           href: graficos-vinculos.html
         - text: "Assuntos estudados"
           href: graficos-assuntos.html
+        
 
-output: distill::distill_article
+output:
+  distill::distill_article:
+    toc: false
+    toc_depth: 3
+    fig_width: 15    # Largura do gráfico
+    fig_height: 5    # Altura do gráfico
+

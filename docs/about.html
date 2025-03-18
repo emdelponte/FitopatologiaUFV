@@ -21,8 +21,9 @@
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -31,7 +32,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -49,16 +50,17 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  { color: #00769e; background-color: #f1f3f5; }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span { color: #00769e; } /* Normal */
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { color: #657422; } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
-code span.cf { color: #007ba5; } /* ControlFlow */
+code span.cf { color: #00769e; } /* ControlFlow */
 code span.ch { color: #20794d; } /* Char */
 code span.cn { color: #8f5902; } /* Constant */
 code span.co { color: #5e5e5e; } /* Comment */
@@ -72,17 +74,18 @@ code span.fl { color: #ad0000; } /* Float */
 code span.fu { color: #4758ab; } /* Function */
 code span.im { } /* Import */
 code span.in { color: #5e5e5e; } /* Information */
-code span.kw { color: #007ba5; } /* Keyword */
+code span.kw { color: #00769e; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
-code span.ot { color: #007ba5; } /* Other */
+code span.ot { color: #00769e; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Egressos PPG Fitopatologia: About this site</title>
@@ -454,9 +457,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet"/>
+  <link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
   <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
   <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
@@ -785,6 +788,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article table.gt_table td,
   d-article table.gt_table th {
     border-bottom: none;
+    font-size: 100%;
   }
 
   .html-widget {
@@ -825,9 +829,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     display: none !important;
   }
 
+  hr.section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 0px;
+  }
+
+
+  d-byline {
+    border-top: none;
+  }
+
   d-article {
     padding-top: 2.5rem;
     padding-bottom: 30px;
+    border-top: none;
   }
 
   d-appendix {
@@ -922,6 +938,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre {
     padding-left: 18px;
     font-size: 14px;
+  }
+
+  /* tweak for Pandoc numbered line within distill */
+  d-article pre.numberSource code > span {
+      left: -2em;
   }
 
   d-article pre {
@@ -1026,10 +1047,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     position: relative;
     margin-bottom: 2.5em;
     margin-top: 1.5em;
-  }
-
-  .figure img {
-    width: 100%;
   }
 
   .figure .caption {
@@ -1687,6 +1704,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // create d-title
     $('.d-title').changeElementType('d-title');
 
+    // separator
+    var separator = '<hr class="section-separator" style="clear: both"/>';
+    // prepend separator above appendix
+    $('.d-byline').before(separator);
+    $('.d-article').before(separator);
+
     // create d-byline
     var byline = $('<d-byline></d-byline>');
     $('.d-byline').replaceWith(byline);
@@ -1764,8 +1787,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     $('.distill-force-highlighting-css').parent().remove();
 
     // remove empty line numbers inserted by pandoc when using a
-    // custom syntax highlighting theme
-    $('code.sourceCode a:empty').remove();
+    // custom syntax highlighting theme, except when numbering line
+    // in code chunk
+    $('pre:not(.numberLines) code.sourceCode a:empty').remove();
 
     // load distill framework
     load_distill_framework();
@@ -1791,12 +1815,13 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
       // add orcid ids
       $('.authors-affiliations').find('.author').each(function(i, el) {
         var orcid_id = front_matter.authors[i].orcidID;
+        var author_name = front_matter.authors[i].author
         if (orcid_id) {
           var a = $('<a></a>');
           a.attr('href', 'https://orcid.org/' + orcid_id);
           var img = $('<img></img>');
           img.addClass('orcid-id');
-          img.attr('alt', 'ORCID ID');
+          img.attr('alt', author_name ? 'ORCID ID for ' + author_name : 'ORCID ID');
           img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
           a.append(img);
           $(this).append(a);
@@ -1861,7 +1886,22 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        const citeChild = $(this).children()[0]
+        // Do not process if @xyz has been used without escaping and without bibliography activated
+        // https://github.com/rstudio/distill/issues/466
+        if (citeChild === undefined) return true
+
+        if (citeChild.nodeName == "D-FOOTNOTE") {
+          var fn = citeChild
+          $(this).html(fn.shadowRoot.querySelector("sup"))
+          $(this).id = fn.id
+          fn.remove()
+        }
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          // Could use CSS.escape too here, we insure backward compatibility in navigator
+          return "<p>" + $('div[id="ref-' + ref + '"]').html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -1872,6 +1912,31 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
           placement: 'bottom-start'
         });
       });
+
+      // fix footnotes in tables (#411)
+      // replacing broken distill.pub feature
+      $('table d-footnote').each(function() {
+        // we replace internal showAtNode methode which is triggered when hovering a footnote
+        this.hoverBox.showAtNode = function(node) {
+          // ported from https://github.com/distillpub/template/pull/105/files
+          calcOffset = function(elem) {
+              let x = elem.offsetLeft;
+              let y = elem.offsetTop;
+              // Traverse upwards until an `absolute` element is found or `elem`
+              // becomes null.
+              while (elem = elem.offsetParent && elem.style.position != 'absolute') {
+                  x += elem.offsetLeft;
+                  y += elem.offsetTop;
+              }
+
+              return { left: x, top: y };
+          }
+          // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetTop
+          const bbox = node.getBoundingClientRect();
+          const offset = calcOffset(node);
+          this.show([offset.left + bbox.width, offset.top + bbox.height]);
+        }
+      })
 
       // clear polling timer
       clearInterval(tid);
@@ -1971,6 +2036,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // mark non-body figures created by knitr chunks as 100% width
     $('.layout-chunk').each(function(i, val) {
       var figures = $(this).find('img, .html-widget');
+      // ignore leaflet img layers (#106)
+      figures = figures.filter(':not(img[class*="leaflet"])')
       if ($(this).attr('data-layout') !== "l-body") {
         figures.css('width', '100%');
       } else {
@@ -1993,7 +2060,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     // get rid of index.html references in header
     if (window.location.protocol !== "file:") {
       $('.distill-site-header a[href]').each(function(i,val) {
-        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+        $(this).attr('href', $(this).attr('href').replace(/^index[.]html/, "./"));
       });
     }
 
@@ -2110,82 +2177,174 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /* Add any additional CSS rules below                      */
   </style>
   <style type="text/css">
-  /* base variables */
-
-  /* Edit the CSS properties in this file to create a custom
-     Distill theme. Only edit values in the right column
-     for each row; values shown are the CSS defaults.
-     To return any property to the default,
-     you may set its value to: unset
-     All rows must end with a semi-colon.                      */
-
-  /* Optional: embed custom fonts here with `@import`          */
-  /* This must remain at the top of this file.                 */
-
-
-
   html {
-    /*-- Main font sizes --*/
-    --title-size:      28px;
-    --body-size:       1rem;
-    --code-size:       14px;
-    --aside-size:      12px;
-    --fig-cap-size:    13px;
-    /*-- Main font colors --*/
-    --title-color:     #000000;
-    --header-color:    rgba(0, 0, 0, 0.8);
-    --body-color:      rgba(0, 0, 0, 0.8);
-    --aside-color:     rgba(0, 0, 0, 0.6);
-    --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    /*-- Specify custom fonts ~~~ must be imported above   --*/
-    --heading-font:    sans-serif;
-    --mono-font:       monospace;
-    --body-font:       sans-serif;
-    --navbar-font:     sans-serif;  /* websites + blogs only */
-  }
+    /* Fontes do Google */
+    --title-font: 'Roboto', sans-serif;
+    --body-font: 'Open Sans', sans-serif;
+    --mono-font: 'Courier New', monospace;
+    --navbar-font: 'Open Sans', sans-serif;
 
-  /*-- ARTICLE METADATA --*/
-  d-byline {
-    --heading-size:    0.6arem;
-    --heading-color:   rgba(0, 0, 0, 0.5);
-    --body-size:       1rem;
-    --body-color:      rgba(0, 0, 0, 0.8);
-  }
+    /* Tamanho das fontes */
+    --title-size: 30px;
+    --body-size: 1.125rem;  /* Corpo do texto maior */
+    --code-size: 15px;
+    --aside-size: 13px;
+    --fig-cap-size: 14px;
 
-  /*-- ARTICLE TABLE OF CONTENTS --*/
-  .d-contents {
-    --heading-size:    16px;
-    --contents-size:   14px;
+    /* Cores dos textos */
+    --title-color: #000000;   /* Cor do título */
+    --header-color: rgba(0, 0, 0, 0.8);  /* Cor do cabeçalho */
+    --body-color: #34495e;  /* Cor do corpo */
+    --aside-color: rgba(0, 0, 0, 0.6); /* Cor do texto do aside */
+    --fig-cap-color: rgba(0, 0, 0, 0.6); /* Cor da legenda */
   }
-
-  /*-- ARTICLE APPENDIX --*/
-  d-appendix {
-    --heading-size:    15px;
-    --heading-color:   rgba(0, 0, 0, 0.65);
-    --text-size:       0.9em;
-    --text-color:      rgba(0, 0, 0, 0.5);
-  }
-
-  /*-- WEBSITE HEADER + FOOTER --*/
-  /* These properties only apply to Distill sites and blogs  */
 
   .distill-site-header {
-    --title-size:       17px;
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        16px;
-    --hover-color:      white;
-    --bkgd-color:       #10a767;
+    --title-size: 20px;
+    --text-color: #fff;
+    --text-size: 18px;
+    --hover-color: #ecf0f1;
+    --bkgd-color: #10a767;  /* Verde definido, sem alteração */
   }
 
   .distill-site-footer {
-    --text-color:       rgba(255, 255, 255, 0.8);
-    --text-size:        15px;
-    --hover-color:      white;
-    --bkgd-color:       #10a767;
+    --text-color: #fff;
+    --text-size: 14px;
+    --hover-color: #ecf0f1;
+    --bkgd-color: #10a767;  /* Verde definido, sem alteração */
+  }
+  /* Estilo de navegação */
+  .navbar {
+    background-color: #10a767;  /* Cor de fundo verde */
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-family: var(--navbar-font);
+    text-transform: uppercase;
+    font-weight: bold;
   }
 
-  /*-- Additional custom styles --*/
-  /* Add any additional CSS rules below                      */
+  .navbar a {
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, padding 0.2s ease;
+  }
+
+  .navbar a:hover {
+    background-color: #16a085;  /* Cor mais escura no hover */
+    color: #ecf0f1;
+  }
+
+  .navbar a.active {
+    background-color: #e74c3c;  /* Cor ativa */
+    color: #fff;
+  }
+
+  /* Espaçamento e alinhamento do conteúdo */
+  body {
+    font-family: var(--body-font);
+    font-size: var(--body-size);
+    line-height: 1.6;
+    color: var(--body-color);
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;  /* Fundo neutro para destacar o conteúdo */
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  /* Para o título */
+  h1, h2, h3, h4 {
+    font-family: var(--title-font);
+    font-size: var(--title-size);
+    color: var(--title-color);
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  /* Estilo de links */
+  a {
+    text-decoration: none;
+    color: #10a767;  /* Cor do link */
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #16a085;  /* Efeito de hover */
+  }
+  /* Footer mais moderno */
+  .distill-site-footer {
+    background-color: #10a767;  /* Cor definida */
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .distill-site-footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .distill-site-footer a:hover {
+    color: #ecf0f1;
+  }
+
+  /* Remover ou ajustar o estilo do TOC */
+  .d-contents {
+    display: none;  /* Esconde o conteúdo do índice */
+  }
+
+  /* Caso queira ajustar a aparência ao invés de esconder */
+  .d-contents {
+    font-size: 14px;
+    color: var(--aside-color);
+    background-color: #f2f2f2;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  /* Figuras com borda suave e centralização */
+  figure {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;  /* Bordas arredondadas nas imagens */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave para profundidade */
+  }
+
+  /* Tabelas mais organizadas */
+  table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+  }
+
+  table th, table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  table th {
+    background-color: #10a767;  /* Cor de fundo do cabeçalho */
+    color: white;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  } 
   </style>
   <style type="text/css">
   /* base style */
@@ -2342,7 +2501,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     color: var(--hover-color, white);
   }</style>
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2371,7 +2530,6 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
 <a href="index.html" class="title">Egressos PPG Fitopatologia</a>
-<a href="index.html">Apresentação</a>
 <a href="egressos.html">Consulta interativa</a>
 <div class="nav-dropdown">
 <button class="nav-dropbtn">
@@ -2381,8 +2539,9 @@ Estatísticas
 </button>
 <div class="nav-dropdown-content">
 <a href="graficos.html">Egressos por nível e ano</a>
-<a href="graficos-orientador.html">Por orientador</a>
+<a href="graficos-orientador.html">Egressos por orientador</a>
 <a href="graficos-estrangeiros.html">Egressos do exterior</a>
+<a href="genero.html">Egressos por gênero</a>
 <a href="graficos-vinculos.html">Vínculo e destino</a>
 <a href="graficos-assuntos.html">Assuntos estudados</a>
 </div>
@@ -2399,6 +2558,7 @@ Estatísticas
 
 <div class="d-title">
 <h1>About this site</h1>
+
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Some additional details about the website</p></p>

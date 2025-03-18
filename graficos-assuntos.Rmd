@@ -2,7 +2,7 @@
 title: "&nbsp;"
 output:
   distill::distill_article:
-    toc: true
+    toc: false
     toc_depth: 3
 ---
 
@@ -20,10 +20,10 @@ library(cowplot)
 Sys.setlocale("LC_ALL", "pt_BR.UTF-8")
 
 
-dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1l_p2gx1kGjMypej5dKscw2wzugaRNUkuzFEc38qfk8E/edit?usp=sharing")
+dat0 <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1YfZlPXn9jwRfneV4j5lmNpRQcQh0LWc8/edit?gid=2097200067#gid=2097200067")
 
 dat1 <- dat0 %>% 
-  select(`Nome do egresso`, Nível, Defesa, Orientador, `Título do trabalho`) 
+  select(`Nome do egresso`, Nível, Defesa, Orientador, `Titulo Dissertação/Tese`) 
 
 
 
@@ -31,7 +31,7 @@ library(tidytext)
 
 cbfito_words <- dat1 %>%
   filter(Defesa > 1976) %>% 
-  unnest_tokens(word, `Título do trabalho`)
+  unnest_tokens(word, `Titulo Dissertação/Tese`)
 cbfito_words
 
 
